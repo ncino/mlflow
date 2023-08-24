@@ -330,6 +330,13 @@ def _deploy(
                                                     "NotificationConfig": {},  # pylint: disable=line-too-long
                                                 },
                                             }
+    :param serverless_config: An optional dictionary specifying the serverless configuration
+                                    .. code-block:: python
+                                        :caption: Example
+                                            "ServerlessConfig": {
+                                                "MemorySizeInMB": 2048,
+                                                "MaxConcurrency": 20,
+                                            }
 
     :param env: An optional dictionary of environment variables to set for the model.
     :param tags: An optional dictionary of tags to apply to the endpoint.
@@ -1561,8 +1568,6 @@ def _create_sagemaker_endpoint(
     production_variant = {
         "VariantName": variant_name,
         "ModelName": model_name,
-        "InitialInstanceCount": instance_count,
-        "InstanceType": instance_type,
         "InitialVariantWeight": 1,
     }
     if serverless_config:
@@ -1714,8 +1719,6 @@ def _update_sagemaker_endpoint(
     new_production_variant = {
         "VariantName": variant_name,
         "ModelName": model_name,
-        "InitialInstanceCount": instance_count,
-        "InstanceType": instance_type,
         "InitialVariantWeight": new_model_weight,
     }
 
